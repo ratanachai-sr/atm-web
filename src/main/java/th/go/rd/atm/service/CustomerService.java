@@ -1,6 +1,6 @@
 package th.go.rd.atm.service;
 
-import org.springframework.context.annotation.Primary;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import th.go.rd.atm.model.Customer;
 
@@ -11,18 +11,39 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private List<Customer> customerList;
+    private List<Customer> customers;
 
     @PostConstruct
     public void postConstruct(){
-        customerList = new ArrayList<>();
+        customers = new ArrayList<>();
+    }
+
+    public String hash(String pin){
+        String salt=BCrypt.gensalt(12);
+        return BCrypt.hashpw(pin,salt);
     }
 
     public void createCustomer(Customer customer){
-        customerList.add(customer);
+        String hashPin = hash(customer.getPin());
+        customer.setPin(hashPin);
+        customers.add(customer);
     }
 
     public List<Customer> getCustomers(){
-        return new ArrayList<>(customerList);
+        return new ArrayList<>(customers);
+    }
+
+    public Customer checkPin(Customer inputCustomer){
+        Customer matchingCustomer = null;
+        for (Customer c : customers) {
+            if (c.getId() == inputCustomer.getId()){
+                matchingCustomer = c;
+            }
+        }
+        if (matchingCustomer != null){
+            if (BCrypt.checkpw(inputCustomer.getPin(),matchingCustomer.getPin()))
+                return matchingCustomer;
+        }
+        return null;
     }
 }
