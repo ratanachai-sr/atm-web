@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Customer</title>
@@ -19,6 +19,7 @@
 
     <input type="submit">
 </form>
+<hr>
 
 <h1>All Customers</h1>
 
@@ -28,7 +29,7 @@
     <div th:each="customer : ${allCustomers}">
         <tr>
             <td><span th:text="${customer.id}">Id</span></td>
-            <td><span th:text="${customer.name}">Id</span></td>
+            <td><span th:text="${customer.name}">Name</span></td>
         </tr>
     </div>
 </table>
