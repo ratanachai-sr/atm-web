@@ -15,14 +15,14 @@ public class CustomerService {
 
     @PostConstruct
     public void postConstruct(){
-        this.customerList = new ArrayList<>();
+        customerList = new ArrayList<>();
     }
 
     public void createCustomer(Customer customer){
-        this.customerList.add(customer);
+        customerList.add(customer);
     }
 
     public List<Customer> getCustomers(){
-        return new ArrayList<>(this.customerList);
+        return new ArrayList<>(customerList);
     }
 }
