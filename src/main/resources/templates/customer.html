@@ -1,38 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-</head>
-<body>
+<html xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/main_layout}"
+      xmlns:th="https://www.thymeleaf.org">
 
-<h1>Register Customers</h1>
-<form action="#" th:action="@{/customer}" method="POST">
-    <label for="inputId">Id</label>
-    <input type="input" name="id" id="inputId">
+<div class="container" layout:fragment="content">
+    <h1>Register Customers</h1>
+    <form action="#" th:action="@{/customer}" method="POST">
+        <div class="form-group">
+            <label for="inputId">Id</label>
+            <input type="input" name="id" id="inputId">
+        </div>
 
-    <label for="inputName">Name</label>
-    <input type="input" name="name" id="inputName">
+        <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="input" name="name" id="inputName">
+        </div>
 
-    <label for="inputPin">Pin</label>
-    <input type="input" name="pin" id="inputPin">
+        <div class="form-group">
+            <label for="inputPin">Pin</label>
+            <input type="password" name="pin" id="inputPin">
+        </div>
 
-    <input type="submit">
+        <div class="form-group">
+            <input type="submit">
+        </div>
 </form>
-<hr>
+    <hr>
 
-<h1>All Customers</h1>
+    <h1>All Customers</h1>
 
-<table border="1px">
-    <tr><th>Id</th><th>Name</th></tr>
-
-    <div th:each="customer : ${allCustomers}">
-        <tr>
-            <td><span th:text="${customer.id}">Id</span></td>
-            <td><span th:text="${customer.name}">Name</span></td>
-        </tr>
-    </div>
+    <table class="table table-primary table-bordered" border="1px">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Pin</th>
+            </tr>
+        </thead>
+        <tbody>
+            <div th:each="customer : ${allCustomers}">
+            <tr>
+                <td><span th:text="${customer.id}">Id</span></td>
+                <td><span th:text="${customer.name}">Name</span></td>
+                <td><span th:text="${customer.pin}">Name</span></td>
+            </tr>
+        </div>
+        </tbody>
 </table>
+</div>
 
-</body>
-</html>
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Customer</title>-->
+<!--    <link th:rel="stylesheet" th:href="@{css/bootstrap.min.css}">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<nav aria-label="breadcrumb">-->
+<!--    <ol class="breadcrumb">-->
+<!--        <li class="breadcrumb-item"><a href="home">Home</a></li>-->
+<!--        <li class="breadcrumb-item"><a href="customer">Customer</a></li>-->
+<!--    </ol>-->
+<!--</nav>-->
+
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>-->
+<!--<script th:src="@{js/bootstrap.min.js}"></script>-->
+
+<!--</body>-->
+<!--</html>-->
