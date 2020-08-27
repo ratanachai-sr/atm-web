@@ -11,17 +11,12 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    private List<Customer> customers;
+    private List<Customer> customers = new ArrayList<>();
 
-    @PostConstruct
-    public void postConstruct(){
-        customers = new ArrayList<>();
-    }
-
-    public String hash(String pin){
-        String salt=BCrypt.gensalt(12);
-        return BCrypt.hashpw(pin,salt);
-    }
+//    @PostConstruct
+//    public void postConstruct(){
+//        customers = new ArrayList<>();
+//    }
 
     public void createCustomer(Customer customer){
         String hashPin = hash(customer.getPin());
@@ -33,17 +28,22 @@ public class CustomerService {
         return new ArrayList<>(customers);
     }
 
-    public Customer checkPin(Customer inputCustomer){
-        Customer matchingCustomer = null;
-        for (Customer c : customers) {
-            if (c.getId() == inputCustomer.getId()){
-                matchingCustomer = c;
-            }
-        }
-        if (matchingCustomer != null){
-            if (BCrypt.checkpw(inputCustomer.getPin(),matchingCustomer.getPin()))
-                return matchingCustomer;
+    public Customer findCustomer(int id) {
+        for (Customer customer : customers) {
+            if (customer.getId() == id)
+                return customer;
         }
         return null;
     }
+
+    public Customer checkPin(Customer inputCustomer) {
+
+        return inputCustomer;
+    }
+
+    private String hash(String pin) {
+        String salt = BCrypt.gensalt(12);
+        return BCrypt.hashpw(pin, salt);
+    }
+
 }

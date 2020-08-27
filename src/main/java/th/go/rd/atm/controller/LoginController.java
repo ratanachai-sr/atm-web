@@ -22,12 +22,19 @@ public class LoginController {
 
     @PostMapping
     public String login(@ModelAttribute Customer customer, Model model){
-        Customer matchingCustomer = customerService.checkPin(customer);
-        if (matchingCustomer != null){
-            model.addAttribute("greeting", "Welcome, " + matchingCustomer.getName());
-        }else{
-            model.addAttribute("greeting","Can't find customer");
-        }
+        Customer matchingCustomer = null;
+//        try {
+            matchingCustomer = customerService.checkPin(customer);
+//        }catch (Exception e){
+//            System.out.println(e);
+//            System.out.println(customer.getId());
+//            System.out.println(customer.getPin());
+//        }
+            if (matchingCustomer != null) {
+                model.addAttribute("greeting", "Welcome, " + matchingCustomer.getName());
+            } else {
+                model.addAttribute("greeting", "Can't find customer");
+            }
         return "home";
     }
 }

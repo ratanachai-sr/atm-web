@@ -6,7 +6,7 @@
 
 <div layout:fragment="content" class="container">
     <h1>Login</h1>
-    <from action="#" th:action="@{/login}" method="POST">
+    <form action="#" th:action="@{/login}" method="POST">
         <div class="form-group">
             <label for="inputId">Id</label>
             <input type="text" class="form-control" name="id" id="inputId">
@@ -20,5 +20,5 @@
         <div class="form-group">
             <input type="submit" class="btn btn-primary">
         </div>
-    </from>
+    </form>
 </div>
