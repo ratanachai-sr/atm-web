@@ -37,8 +37,14 @@ public class CustomerService {
     }
 
     public Customer checkPin(Customer inputCustomer) {
+        Customer storedCustomer = findCustomer(inputCustomer.getId());
 
-        return inputCustomer;
+        if (storedCustomer != null){
+            String storedPin = storedCustomer.getPin();
+            if (BCrypt.checkpw(inputCustomer.getPin(),storedPin))
+                return storedCustomer;
+        }
+        return null;
     }
 
     private String hash(String pin) {

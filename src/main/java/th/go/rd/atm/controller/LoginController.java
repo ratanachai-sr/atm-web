@@ -15,6 +15,10 @@ public class LoginController {
 
     private CustomerService customerService;
 
+    public LoginController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     @GetMapping
     public String getLoginPage(){
         return "login";
@@ -23,13 +27,7 @@ public class LoginController {
     @PostMapping
     public String login(@ModelAttribute Customer customer, Model model){
         Customer matchingCustomer = null;
-//        try {
             matchingCustomer = customerService.checkPin(customer);
-//        }catch (Exception e){
-//            System.out.println(e);
-//            System.out.println(customer.getId());
-//            System.out.println(customer.getPin());
-//        }
             if (matchingCustomer != null) {
                 model.addAttribute("greeting", "Welcome, " + matchingCustomer.getName());
             } else {
