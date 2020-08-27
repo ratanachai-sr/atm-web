@@ -1,12 +1,14 @@
 package th.go.rd.atm.service;
 
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import th.go.rd.atm.data.CustomerRepository;
 import th.go.rd.atm.model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CustomerService {
@@ -36,7 +38,11 @@ public class CustomerService {
     }
 
     public Customer findCustomer(int id) {
-        return repository.findById(id);
+        try {
+            return repository.findById(id);
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
 //        for (Customer customer : customers) {
 //            if (customer.getId() == id)
 //                return customer;

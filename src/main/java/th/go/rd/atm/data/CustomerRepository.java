@@ -6,11 +6,10 @@ import th.go.rd.atm.model.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CustomerRepository implements JdbcRepository {
+public class CustomerRepository {    //implements JdbcRepository
 
     private JdbcTemplate jdbcTemplate;
 
@@ -18,33 +17,31 @@ public class CustomerRepository implements JdbcRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
+//    @Override
     public List<Customer> findAll() {
-        String query = "SELECT * FROM atm.customer";
-        List<Customer> customers = jdbcTemplate.query(query, new CustomerMapper());
-        return customers;
+        String query = "SELECT * FROM customer";
+        return jdbcTemplate.query(query, new CustomerMapper());
     }
 
-    @Override
+//    @Override
     public Customer findById(int id) {
         String query = "SELECT * FROM customer WHERE id = " + id;
-        Customer customer = jdbcTemplate.queryForObject(query, new CustomerMapper());
-        return customer;
+        return jdbcTemplate.queryForObject(query, new CustomerMapper());
     }
 
-    @Override
+//    @Override
     public void save(Customer customer) {
         String query = "INSERT INTO customer (id,name,pin) VALUES (?,?,?);";
         Object[] data = new Object[]{ customer.getId(), customer.getName(), customer.getPin()};
         jdbcTemplate.update(query, data);
     }
 
-    @Override
+//    @Override
     public void update(int id, Customer customer) {
 
     }
 
-    @Override
+//    @Override
     public void deleteById(Customer customer) {
 
     }
@@ -56,9 +53,7 @@ public class CustomerRepository implements JdbcRepository {
             int id = resultSet.getInt("id");
             String name = resultSet.getString("name");
             String pin = resultSet.getString("pin");
-
-            Customer customer = new Customer(id, name, pin);
-            return customer;
+            return new Customer(id, name, pin);
         }
     }
 }

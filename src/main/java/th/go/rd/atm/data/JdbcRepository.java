@@ -1,7 +1,6 @@
 package th.go.rd.atm.data;
 
 import th.go.rd.atm.model.Customer;
-
 import java.util.List;
 
 public interface JdbcRepository {
